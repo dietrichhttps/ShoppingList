@@ -83,7 +83,7 @@ class ShopItemFragment(
 
     private fun observeViewModel() {
         viewModel.shouldCloseScreen.observe(viewLifecycleOwner) {
-            finish()
+            activity?.onBackPressedDispatcher?.onBackPressed()
         }
 
         viewModel.shopItem.observe(viewLifecycleOwner) {
@@ -135,6 +135,13 @@ class ShopItemFragment(
 
         private const val TAG = "ShopItemActivity"
 
+        fun newInstanceAddItem(): ShopItemFragment {
+            return ShopItemFragment(MODE_ADD)
+        }
+
+        fun newInstanceEditItem(shopItemId: Int): ShopItemFragment {
+            return ShopItemFragment(MODE_EDIT, shopItemId)
+        }
 
         fun newIntentAddItem(context: Context): Intent {
             val intent = Intent(context, ShopItemActivity::class.java)
